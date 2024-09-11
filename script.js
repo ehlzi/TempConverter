@@ -1,166 +1,88 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener("DOMContentLoaded", function () {
+    // Function to display the conversion results
+    function displayResults() {
+        // Get input values and parse them as floats
+        let fahrenheit = parseFloat(document.getElementById("fahrenheit-input").value);
+        let celsius = parseFloat(document.getElementById("celsius-input").value);
+        let kelvin = parseFloat(document.getElementById("kelvin-input").value);
+        let newton = parseFloat(document.getElementById("newton-input").value);
 
-	function displayResults() {
+        // Check if all inputs are NaN (invalid)
+        if (isNaN(fahrenheit) && isNaN(celsius) && isNaN(kelvin) && isNaN(newton)) {
+            document.getElementById("result").innerHTML = "<p>Please enter a valid temperature in one of the fields.</p>";
+            return;
+        }
 
-		let fahrenheit = parseFloat(document.getElementById('fahrenheit-input').value);
-		let celsius = parseFloat(document.getElementById('celsius-input').value);
-		let kelvin = parseFloat(document.getElementById('kelvin-input').value);
-		let newton = parseFloat(document.getElementById('newton-input').value);
+        // Perform conversions based on which input is provided
+        if (!isNaN(fahrenheit)) {
+            // Convert Fahrenheit to other units
+            celsius = (fahrenheit - 32) * (5 / 9);
+            kelvin = celsius + 273.15;
+            newton = celsius * (33 / 100);
+        } else if (!isNaN(celsius)) {
+            // Convert Celsius to other units
+            kelvin = celsius + 273.15;
+            fahrenheit = celsius * (9 / 5) + 32;
+            newton = celsius * (33 / 100);
+        } else if (!isNaN(kelvin)) {
+            // Convert Kelvin to other units
+            celsius = kelvin - 273.15;
+            fahrenheit = celsius * (9 / 5) + 32;
+            newton = celsius * (33 / 100);
+        } else if (!isNaN(newton)) {
+            // Convert Newton to other units
+            celsius = newton * (100 / 33);
+            fahrenheit = celsius * (9 / 5) + 32;
+            kelvin = celsius + 273.15;
+        } else {
+            // If input is invalid, display an error message
+            document.getElementById("result").innerHTML = "<p>Input Invalid</p>";
+            return;
+        }
 
-		if (isNaN(fahrenheit || celsius || kelvin || newton)) {
+        // Round the results to the nearest integer
+        fahrenheit = Math.floor(fahrenheit);
+        celsius = Math.floor(celsius);
+        kelvin = Math.floor(kelvin);
+        newton = Math.floor(newton);
 
-			document.getElementById('result').innerHTML =
-			`
-			<p>Input Invalid</p>
-			`
-			;
-			return;
+        // Display the results in the result div
+        const resultDiv = document.getElementById("result");
+        resultDiv.innerHTML = `
+            <p>Fahrenheit: <br> ${fahrenheit}°F</p>
+            <p>Celsius: <br> ${celsius}°C</p>
+            <p>Kelvin: <br> ${kelvin}°K</p>
+            <p>Newton: <br> ${newton}°N</p>
+        `;
+    }
 
-			/*
-			This results in a popup window:
-			alert('Please enter a valid number');
-			*/
+    // Function to add Enter key listener to input fields
+    function addEnterKeyListener(inputId) {
+        document.getElementById(inputId).addEventListener("keyup", function (event) {
+            if (event.key === "Enter") {
+                displayResults();
+            }
+        });
+    }
 
-		} else if (fahrenheit) {
+    // Add Enter key listeners to all input fields
+    addEnterKeyListener("fahrenheit-input");
+    addEnterKeyListener("celsius-input");
+    addEnterKeyListener("kelvin-input");
+    addEnterKeyListener("newton-input");
 
-			//Declaration of variables
-			celsius = (fahrenheit - 32) * (5 / 9);
-			kelvin = 273 - celsius;
-			newton = celsius * (33 / 100);
-
-			//Rounds to nearest integer
-			fahrenheit = Math.floor(fahrenheit);
-			celsius = Math.floor(celsius);
-			kelvin = Math.floor(kelvin);
-			newton = Math.floor(newton);
-
-			const resultDiv = document.getElementById('result')
-			resultDiv.innerHTML =
-			`
-			<p>Fahrenheit: ${fahrenheit}</p>
-			<p>Celsius: ${celsius}</p>
-			<p>Kelvin: ${kelvin}</p>
-			<p>Newton: ${newton}</p>
-			`
-			;
-
-		} else if (celsius) {
-
-			//Declaration of variables
-			kelvin = 273 - celsius;
-			fahrenheit = celsius * (9 / 5) + 32;
-			newton = celsius * (33 / 100);
-
-			//Rounds to nearest integer
-			fahrenheit = Math.floor(fahrenheit);
-			celsius = Math.floor(celsius);
-			kelvin = Math.floor(kelvin);
-			newton = Math.floor(newton);
-
-			const resultDiv = document.getElementById('result')
-			resultDiv.innerHTML =
-			`
-			<p>Fahrenheit: ${fahrenheit}</p>
-			<p>Celsius: ${celsius}</p>
-			<p>Kelvin: ${kelvin}</p>
-			<p>Newton: ${newton}</p>
-			`
-			;
-
-		} else if (kelvin) {
-
-			//Declaration of variables
-			celsius = 273 - kelvin;
-			fahrenheit = celsius * (9 / 5) + 32;
-			newton = celsius * (33 / 100);
-
-			//Rounds to nearest integer
-			fahrenheit = Math.floor(fahrenheit);
-			celsius = Math.floor(celsius);
-			kelvin = Math.floor(kelvin);
-			newton = Math.floor(newton);
-
-			const resultDiv = document.getElementById('result')
-			resultDiv.innerHTML =
-			`
-			<p>Fahrenheit: ${fahrenheit}</p>
-			<p>Celsius: ${celsius}</p>
-			<p>Kelvin: ${kelvin}</p>
-			<p>Newton: ${newton}</p>
-			`
-			;
-
-		} else if (newton) {
-
-			//Declaration of variables
-			celsius = newton * (100 / 33);
-			kelvin = 273 - celsius;
-			fahrenheit = celsius * (9 / 5) + 32;
-
-			//Rounds to nearest integer
-			fahrenheit = Math.floor(fahrenheit);
-			celsius = Math.floor(celsius);
-			kelvin = Math.floor(kelvin);
-			newton = Math.floor(newton);
-
-			const resultDiv = document.getElementById('result')
-			resultDiv.innerHTML =
-			`
-			<p>Fahrenheit: ${fahrenheit}</p>
-			<p>Celsius: ${celsius}</p>
-			<p>Kelvin: ${kelvin}</p>
-			<p>Newton: ${newton}</p>
-			`
-			;
-
-		} else {
-
-			document.getElementById('result').innerHTML =
-			`
-			<p>Input Invalid</p>
-			`
-			;
-		}
-
-	}
-
-	function addEnterKeyListener(inputId) {
-
-		document.getElementById(inputId).addEventListener('keyup', function (event) {
-
-			if (event.key === 'Enter') {
-
-				displayResults();
-
-			}
-		}
-		)
-
-	}
-
-	addEnterKeyListener('fahrenheit-input');
-	addEnterKeyListener('celsius-input');
-	addEnterKeyListener('kelvin-input');
-	addEnterKeyListener('newton-input');
-
-	document.querySelector('.container').addEventListener('click', function (event) {
-
-		if (event.target.id === 'convert-btn') {
-
-			displayResults();
-
-		} else if (event.target.id === 'clear-btn') {
-
-			document.getElementById('fahrenheit-input').value = '';
-			document.getElementById('celsius-input').value = '';
-			document.getElementById('kelvin-input').value = '';
-			document.getElementById('newton-input').value = '';
-
-			document.getElementById('result').innerHTML = '';
-
-		}
-	}
-	);
-
-}
-);
+    // Add click event listeners to the container for convert and clear buttons
+    document.querySelector(".container").addEventListener("click", function (event) {
+        if (event.target.id === "convert-btn") {
+            // Call displayResults function when convert button is clicked
+            displayResults();
+        } else if (event.target.id === "clear-btn") {
+            // Clear all input fields and the result div when clear button is clicked
+            document.getElementById("fahrenheit-input").value = "";
+            document.getElementById("celsius-input").value = "";
+            document.getElementById("kelvin-input").value = "";
+            document.getElementById("newton-input").value = "";
+            document.getElementById("result").innerHTML = "";
+        }
+    });
+});

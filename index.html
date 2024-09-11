@@ -1,5 +1,5 @@
 <!doctype html>
-<html>
+<html lang="en">
 
 <head>
   <meta charset="UTF-8">
@@ -12,31 +12,32 @@
 
   <div class="container">
 
-    <h1>Temperature Converter</h1>
-    <p>Please enter temperature</p>
+    <h2>Temperature Converter</h2>
 
-    <div id="temperature-info-container">
+    <div id="result"></div>
 
-      <input type="number" id="fahrenheit-input" placeholder="In Fahrenheit">
-      <input type="number" id="celsius-input" placeholder="In Celsius">
-      <input type="number" id="kelvin-input" placeholder="In Kelvin">
-      <input type="number" id="newton-input" placeholder="In Newton">
+    <p>Insert Temperature Below:</p>
 
-      <div id="result"></div>
+    <div id="temperature-input-container">
 
-    </div>
-
-    <div>
-
-      <button id="convert-btn" class="button">Convert</button>
-      <button id="clear-btn" class="button">Clear</button>
+      <input type="number" id="fahrenheit-input" placeholder="In Fahrenheit" class="input-field" aria-label="Fahrenheit">
+      <input type="number" id="celsius-input" placeholder="In Celsius" class="input-field" aria-label="Celsius">
+      <input type="number" id="kelvin-input" placeholder="In Kelvin" class="input-field" aria-label="Kelvin">
+      <input type="number" id="newton-input" placeholder="In Newton" class="input-field" aria-label="Newton">
 
     </div>
 
+    <div id="button-container">
+
+      <button id="convert-btn" class="button" aria-label="Convert">Convert</button>
+      <button id="clear-btn" class="button" aria-label="Clear">Clear</button>
+
+    </div>
 
   </div>
 
   <script src="script.js"></script>
+
 </body>
 
 </html>
